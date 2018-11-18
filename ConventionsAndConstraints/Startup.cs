@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConventionsAndConstraints.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,12 @@ namespace ConventionsAndConstraints
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddSingleton<UserAgentComparer>();
+            services.AddMvc().AddMvcOptions(options =>
+            {
+                //options.Conventions.Add(new ActionNamePrefixAttribute("Do"));
+                //options.Conventions.Add(new AdditionalActionsAttribute());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

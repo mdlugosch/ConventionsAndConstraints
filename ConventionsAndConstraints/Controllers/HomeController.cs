@@ -1,4 +1,5 @@
-﻿using ConventionsAndConstraints.Models;
+﻿using ConventionsAndConstraints.Infrastructure;
+using ConventionsAndConstraints.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConventionsAndConstraints.Controllers
 {
+    //[AdditionalActions]
     public class HomeController : Controller
     {
         public IActionResult Index() => View("Result", new Result
@@ -15,6 +17,18 @@ namespace ConventionsAndConstraints.Controllers
             Action = nameof(Index)
         });
 
+        [ActionName("Index")]
+        [UserAgent("Edge")]
+        public IActionResult Other() => View("Result", new Result
+        {
+            Controller = nameof(HomeController),
+            Action = nameof(Index)
+        });
+
+        //[ActionNamePrefix("Do")]
+        //[ActionName("Details")]
+        //[AddAction("Details")]
+        [UserAgent("Edge")]
         public IActionResult List() => View("Result", new Result
         {
             Controller = nameof(HomeController),
